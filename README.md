@@ -18,4 +18,4 @@ This is a simple app for balancing a group budget. It's destined to put on the a
     2. Find the person who has paid the least (the giver)
     3. Update each the receiver and the giver's differences with the lowest difference
 
-Eventually the differences will all become 0 (there must be some proof out there). [Here](https://gist.github.com/MaxHalford/f233d0e5178847a273b357f3fd79a418) is it's implementation in Python.
+Eventually the differences will all become 0 (there must be some proof out there). [Here](https://gist.github.com/MaxHalford/f233d0e5178847a273b357f3fd79a418) is the implementation in Python.
