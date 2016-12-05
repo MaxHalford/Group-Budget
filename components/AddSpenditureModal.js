@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 
-import Button from 'react-native-button';
-import Modal from 'react-native-modalbox';
+import _ from 'lodash'
+
+import Button from 'react-native-button'
+import Modal from 'react-native-modalbox'
 
 export default class AddSpenditureModal extends Component {
 
@@ -15,11 +17,19 @@ export default class AddSpenditureModal extends Component {
   }
 
   openModal() {
-    this.refs.modal.open();
+    this.refs.modal.open()
   }
 
   closeModal() {
-    this.refs.modal.close();
+    this.refs.modal.close()
+  }
+
+  validPerson() {
+    return this.state.person !== null && this.state.person !== ''
+  }
+
+  validAmount() {
+    return this.state.amount !== null && ! Number.isNaN(this.state.amount)
   }
 
   render() {
@@ -32,7 +42,7 @@ export default class AddSpenditureModal extends Component {
           <Text style={styles.modalTitle}>Add a spenditure</Text>
           <TextInput
             style={styles.textInput}
-            onChangeText={person => {this.setState({person})}}
+            onChangeText={person => this.setState({'person': _.upperFirst(_.toLower(person))})}
             placeholder='Person'
           />
           <TextInput
@@ -43,6 +53,8 @@ export default class AddSpenditureModal extends Component {
           />
           <Button
             style={styles.confirmButton}
+            styleDisabled={{color: '#7e7e7e'}}
+            disabled={!this.validPerson() || !this.validAmount()}
             containerStyle={styles.confirmButtonContainer}
             onPress={() => {this.props.onConfirm(this.state); this.closeModal()}}
           >
@@ -56,14 +68,14 @@ export default class AddSpenditureModal extends Component {
 
 const styles = StyleSheet.create({
   modal: {
-    height: 200,
+    height: 180,
     width: 320,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
   },
   modalContainer: {
-    width: 260,
+    width: 200,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -73,7 +85,9 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1
+    borderWidth: 1,
+    padding: 6,
+    marginTop: 10
   },
   confirmButtonContainer: {
     padding: 10,
@@ -86,9 +100,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'seagreen'
   }
-});
+})
 
 AddSpenditureModal.propTypes = {
   modalIsOpen: React.PropTypes.bool,
   onConfirm: React.PropTypes.func
-};
+}
